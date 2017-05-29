@@ -6,7 +6,7 @@ Python implementation of the algorithms presented in the book [Mazes for Program
 
 ## Method Binary Tree 
 
-'''sh
+```sh
 $ python binary_tree.py
 Enter number of rows: 12
 Enter number of columns: 25
@@ -35,7 +35,7 @@ Enter number of columns: 25
 +   +---+---+---+---+---+   +   +---+---+---+---+---+   +---+   +---+---+   +   +---+---+---+---+   +   +
 +   |                       |   |                       |       |           |   |                   |   |
 +   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-'''
+```
 License
 ----
 MIT
