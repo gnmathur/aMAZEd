@@ -40,14 +40,14 @@ class SidewinderMaze:
         Create a maze using the Sidewinder algorithm.
 
         This algorithm is an improvement over the Binary tree method. Instead
-        of deciding to link N or E each turn, we create a 'run' of cell in each
-        row. We decide to end the probabilistically. At the end of the run we
-        choose a cell from a cell randomly, and link this cell to its North
-        neighbor. 
+        of deciding to link N or E each turn, we create a "run" of cells in each
+        row. We decide to end the run probabilistically (50%) each turn. At the 
+        end of the run we choose a cell from a run of cells randomly, and link 
+        this cell to its North neighbor. 
 
-        This algorithm also generates perfect mazes. The bias here are -
+        This algorithm also generates "perfect" mazes. The bias'es here are -
         a. Unbroken corridor at the top, same as in Binary tree
-        b. Passages from South to North as trivial
+        b. Passages from South to North are trivial
         """
         for row in grid.each_row():
             run = []
