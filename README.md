@@ -4,7 +4,7 @@ Implementation of Maze algorithms
 
 Python implementation of the algorithms presented in the book [Mazes for Programmers][REF1] by Jamis Buck
 
-## Method Binary Tree 
+## Binary Tree Method
 
 ```sh
 $ python binary_tree.py
@@ -36,6 +36,30 @@ Enter number of columns: 25
 +   |                       |   |                       |       |           |   |                   |   |
 +   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
 ```
+
+## Sidewinder Algorithm
+
+```sh
+$ python sidewinder.py
+Enter number of rows: 7
+Enter number of columns: 12
++---+---+---+---+---+---+---+---+---+---+---+---+
+|                                               |
++   +---+   +---+---+---+   +---+   +---+---+---+
+|       |           |           |               |
++---+   +---+---+---+---+---+---+   +---+---+   +
+|           |                               |   |
++---+---+   +---+---+   +---+   +---+---+---+   +
+|               |           |   |               |
++   +---+---+---+---+---+   +---+---+---+   +---+
+|       |                   |                   |
++   +---+---+---+   +---+   +---+---+---+---+---+
+|   |                   |                       |
++---+---+   +---+---+   +---+---+---+   +---+---+
+|                   |               |           |
++---+---+---+---+---+---+---+---+---+---+---+---+
+```
+
 License
 ----
 MIT
