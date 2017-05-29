@@ -1,6 +1,28 @@
-#
-# Maze Grid class
-#
+"""
+Grid definition
+
+MIT License
+
+Copyright (c) 2017 Gaurav Mathur
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+"""
 
 from cell import Cell
 import random
@@ -65,7 +87,26 @@ class Grid:
             s = s + ' '.join(L) + '\n'
         return s
 
+    def draw_ascii(self):
+        output = '+' + "---+" * self.columns + '\n'
+        for row in self.each_row():
+            top = '|'
+            bottom = '+'
+            for cell in row:
+                body = "   "
+                east_boundary = ' ' if cell.isLinked(cell.cellEast) else '|'
+                top = top + body + east_boundary
+                south_boundary = '   ' if cell.isLinked(cell.cellSouth) else '---'
+                corner = '+'
+                bottom = bottom + south_boundary + corner
+            output = output + top + '\n'
+            output = output + bottom + '\n'
+        print output
+                
 if __name__ == "__main__":
+    """
+    Unit tests
+    """
     print Grid(10, 10)
     for row in Grid(4,4).prepare_grid():
         print row
