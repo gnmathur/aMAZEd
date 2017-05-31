@@ -41,9 +41,9 @@ class SidewinderMaze:
 
         This algorithm is an improvement over the Binary tree method. Instead
         of deciding to link N or E each turn, we create a "run" of cells in each
-        row. We decide to end the run probabilistically (50%) each turn. At the 
-        end of the run we choose a cell from a run of cells randomly, and link 
-        this cell to its North neighbor. 
+        row. We decide to end the run probabilistically (1/4 probability) each 
+        turn. At the end of the run we choose a cell from a run of cells 
+        randomly, and link this cell to its North neighbor. 
 
         This algorithm also generates "perfect" mazes. The bias'es here are -
         a. Unbroken corridor at the top, same as in Binary tree
@@ -53,17 +53,25 @@ class SidewinderMaze:
             run = []
             for cell in row:
                 run.append(cell)
+                # A run ends at the ends boundary
                 at_east_boundary = (cell.cellEast == None)
+                # You cannot link to anything North in the northern-most row
                 at_north_boundary = (cell.cellNorth == None)
 
+                # Stop a run if we have reached the east end of a row or,
+                # close it probabilistically (25% probability) each iteration
                 should_close_out = (at_east_boundary) or ((not at_north_boundary) and (random.randint(0, 3) == 0))
                 if should_close_out:
+                    # This run needs to be closed out, now choose a cell from the cells collected in this
+                    # run probabilistically. Each cell has equal probability of being chosen
                     idx = random.randint(0, len(run)-1)
                     member = run[idx]
                     if member.cellNorth is not None:
                         member.link(member.cellNorth)
+                    # Clear out the cells collected in the previus run. 
                     del run[:]
                 else:
+                    # By default every cell is linked to its eastern neighbor
                     cell.link(cell.cellEast)
 
 if __name__ == "__main__":
