@@ -91,30 +91,48 @@ class Graph:
         for node in each_edge():
             yield edge
 
-    def dfs(self, start_node, func):
+    def dfs(self, start_node, cbfunc):
+        """ Depth-first implementation
+        Positional arguments:
+        start_node - Node to start the search from
+        cbfunc - Callback function to call when a Node is discovered in the 
+                graph
+        """
         visited = set()
         stack = [start_node]
         while len(stack) != 0:
             n = stack.pop()
             if n in visited:
                 continue
-            func(n)
+            cbfunc(n)
             visited.add(n)
+            for neighbor in n.each_neighbor():
+                stack.append(neighbor)
 
 
 if __name__ == "__main__":
     g = Graph()
-    nA = Node('A')
-    nB = Node('B')
-    nC = Node('C')
-    nD = Node('D')
-    nE = Node('E')
-    nF = Node('F')
-    nG = Node('G')
+    nA = Node('A') 
+    nB = Node('B') 
+    nC = Node('C') 
+    nD = Node('D') 
+    nE = Node('E') 
+    nF = Node('F') 
+    nG = Node('G') 
+    nH = Node('H') 
+    nI = Node('I')
+
     g.add_edge(nA, nB).add_edge(nA, nC)
-    g.add_edge(nB, nD).add_edge(nC, nD)
+    g.add_edge(nB, nD).add_edge(nD, nC)
     g.add_edge(nC, nE).add_edge(nC, nF)
     g.add_edge(nF, nG).add_edge(nE, nF)
+    g.add_edge(nD, nH).add_edge(nH, nI).add_edge(nI, nB)
+    
+    print "Neighbors of 'C':", 
     for neigh in nC.each_neighbor():
-        print neigh
+        print neigh,
+    print
+    print "DFS:", 
+    def printthis(X): print X,
+    g.dfs(nA, printthis)
 
