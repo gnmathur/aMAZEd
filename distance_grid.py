@@ -29,13 +29,16 @@ from grid import Grid
 
 class DistanceGrid(Grid):
     def distances(self, cell):
+        """ This method computes the distance of each cell in the
+        grid from <cell>
+        """
         distances = Distances(cell)
         frontier = [cell]
         while len(frontier) > 0:
             new_frontier = []
             for cell in frontier:
                 for linked_cell in cell.getLinks():
-                    if distances[linked_cell] != 0:
+                    if distances[linked_cell] != None:
                         continue
                     distances[linked_cell] = distances[cell] + 1
                     new_frontier.append(linked_cell)
@@ -43,6 +46,9 @@ class DistanceGrid(Grid):
         return distances
 
     def draw_ascii(self):
+        """ Draw the ASCII maze with distance information
+        This method always computes the distance from the root set at (0, 0)
+        """
         distances = self.distances(self[0,0])
         output = '+' + "---+" * self.columns + '\n'
         for row in self.each_row():
