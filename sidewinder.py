@@ -26,7 +26,9 @@ furnished to do so, subject to the following conditions:
 
 from cell import Cell
 from grid import Grid
+from distance_grid import DistanceGrid
 import random
+import argparse
 
 class SidewinderMaze:
     """
@@ -75,8 +77,20 @@ class SidewinderMaze:
                     cell.link(cell.cellEast)
 
 if __name__ == "__main__":
-    nRows = input("Enter number of rows: ")
-    nColumns = input("Enter number of columns: ")
-    g = Grid(nRows, nColumns)
+    parser = argparse.ArgumentParser()
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("-d", "--distance_grid", action="store_true")
+    group.add_argument("-g", "--grid", action="store_true")
+    parser.add_argument("r", type=int, help="Number of rows")
+    parser.add_argument("c", type=int, help="Number of columns")
+    args = parser.parse_args()
+
+    nRows = args.r
+    nColumns = args.c
+    if args.distance_grid:
+        g = DistanceGrid(nRows, nColumns)
+    else:
+        g = Grid(nRows, nColumns)
+
     SidewinderMaze.create(g)
     g.draw_ascii();

@@ -93,6 +93,11 @@ class Graph:
 
     def dfs(self, start_node, cbfunc):
         """ Depth-first implementation
+    
+        This is an iterative implementation. A consequence of that is that it
+        might not be possible to get 'number of descendents' information in
+        this implementation.
+
         Positional arguments:
         start_node - Node to start the search from
         cbfunc - Callback function to call when a Node is discovered in the 
@@ -100,14 +105,15 @@ class Graph:
         """
         visited = set()
         stack = [start_node]
+
         while len(stack) != 0:
-            n = stack.pop()
-            if n in visited:
+            node = stack.pop()
+            if node in visited:
                 continue
-            cbfunc(n)
-            visited.add(n)
-            for neighbor in n.each_neighbor():
-                stack.append(neighbor)
+            cbfunc(node)
+            visited.add(node)
+            for neighbor_node in node.each_neighbor():
+                stack.append(neighbor_node)
 
 
 if __name__ == "__main__":
@@ -132,7 +138,15 @@ if __name__ == "__main__":
     for neigh in nC.each_neighbor():
         print neigh,
     print
-    print "DFS:", 
+
     def printthis(X): print X,
+
+    print "DFS (root=A):", 
     g.dfs(nA, printthis)
+    print
+
+    print "DFS (root=C):", 
+    g.dfs(nC, printthis)
+    print
+
 
