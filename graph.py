@@ -53,6 +53,19 @@ class Node:
         for edge in self.edges:
             yield edge.node_to if edge.node_from is self else edge.node_from
 
+    # Factory method
+    @staticmethod
+    def create(*nIds):
+        """ Create N Node instances
+        
+        Argument:
+        nIds - A list of N identifiers. Create a Node instance for each of these
+        """
+        nodes = []
+        for nId in nIds:
+            nodes.append(Node(nId))
+        return nodes
+
     def __str__(self):
         return str(self.pld)
 
@@ -115,24 +128,72 @@ class Graph:
             for neighbor_node in node.each_neighbor():
                 stack.append(neighbor_node)
 
+    def bfs(self, start_node, visit_func, distance_func = None):
+        """ Breadth first search implementation
+
+        Breadth-first search on a graph. This implementation also computes the
+        distance of a node from the start node.
+
+        Positional Arguments -
+        start_node - node to start the search from
+        visit_func - this function will be called when a new node is discovered in the search
+
+        Keywork Arguments - 
+        distance_func - this function will be called with an argument that includes all the 
+                        computed distances
+        """
+        from collections import deque
+
+        distances = dict()
+        distances[start_node] = 0
+        visited = set()
+        qu = deque()
+        qu.appendleft(start_node)
+        while len(qu) != 0:
+            node = qu.pop()
+            if node in visited:
+                continue
+            visit_func(node)
+            visited.add(node)
+            for neighbor_node in node.each_neighbor():
+                qu.appendleft(neighbor_node)
+                if neighbor_node not in distances.keys():
+                    distances[neighbor_node] = distances[node] + 1
+        if distance_func:
+            distance_func(distances)
 
 if __name__ == "__main__":
     g = Graph()
-    nA = Node('A') 
-    nB = Node('B') 
-    nC = Node('C') 
-    nD = Node('D') 
-    nE = Node('E') 
-    nF = Node('F') 
-    nG = Node('G') 
-    nH = Node('H') 
-    nI = Node('I')
+    nA, nB, nC, nD, nE, nF, nG, nH, nI = \
+        Node.create('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I')
 
-    g.add_edge(nA, nB).add_edge(nA, nC)
-    g.add_edge(nB, nD).add_edge(nD, nC)
-    g.add_edge(nC, nE).add_edge(nC, nF)
-    g.add_edge(nF, nG).add_edge(nE, nF)
-    g.add_edge(nD, nH).add_edge(nH, nI).add_edge(nI, nB)
+    #                        +----+
+    #                +-------+  A +------+
+    #                |       +----+      |
+    #                |                   |
+    #                |                   |
+    #              +-v--+              +-v--+
+    # +------------>  B |              |  C +----------+
+    # |            +-+--+              +-+--+          |
+    # |              |                   |             |
+    # |       +----+ |                +--v-+        +--v-+
+    # |       |    | |                |  E |        |    |
+    # |       | D  <-+                |    +-------->   F|
+    # |       +-+--+                  +-^--+        +--+-+
+    # |         |                       |              |
+    # |         |                       |              |
+    # |       +-v--+                    |           +--v-+
+    # |       |    |                    |           |  G |
+    # |       | H  +--------------------+           +----+
+    # |       +-+--+                                
+    # |         |
+    # |         |
+    # |       +-v--+
+    # +-------+ I  |
+    #         +----+
+    g.add_edge(nA, nB).add_edge(nA, nC).add_edge(nB, nD).add_edge(nD, nC)
+    g.add_edge(nC, nE).add_edge(nC, nF).add_edge(nF, nG).add_edge(nE, nF)
+    g.add_edge(nD, nH).add_edge(nH, nI).add_edge(nI, nB).add_edge(nH, nE)
     
     print "Neighbors of 'C':", 
     for neigh in nC.each_neighbor():
@@ -149,4 +210,11 @@ if __name__ == "__main__":
     g.dfs(nC, printthis)
     print
 
+    def distancesprint(distance_dict):
+        print
+        for key, value in distance_dict.items():
+            print key, "-->", value
 
+    print "BFS (root=A):",
+    g.bfs(nA, printthis, distancesprint)
+    print

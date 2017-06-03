@@ -64,10 +64,12 @@ class Cell:
         return cell in self.links
 
     def neighbors(self):
-        return [self.cellNorth or None,
-                self.cellSouth or None,
-                self.cellWest or None,
-                self.cellEast or None]
+        n = []
+        if self.cellNorth: n.append(self.cellNorth) 
+        if self.cellSouth: n.append(self.cellSouth)
+        if self.cellWest: n.append(self.cellWest)
+        if self.cellEast: n.append(self.cellEast)
+        return n
 
     def __str__(self):
         s = "("+str(self.row)+", "+str(self.column)+")"

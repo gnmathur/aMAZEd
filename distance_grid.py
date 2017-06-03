@@ -45,6 +45,20 @@ class DistanceGrid(Grid):
             frontier = new_frontier
         return distances
 
+    def path_to(self, goal):
+        current = goal
+        root = self[0,0]
+        d = self.distances(root)
+        crumbs = Distances(root)
+        crumbs[current] = d[current]
+
+        while current is not root:
+            for neighbor in current.getLinks():
+                if d[neighbor] < d[current]:
+                    crumbs[neighbor] = d[neighbor]
+                    current = neighbor
+        return crumbs
+
     def draw_ascii(self):
         """ Draw the ASCII maze with distance information
         This method always computes the distance from the root set at (0, 0)
