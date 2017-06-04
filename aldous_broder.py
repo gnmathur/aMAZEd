@@ -66,7 +66,12 @@ if __name__ == "__main__":
     nColumns = args.c
     if args.distance_grid:
         g = DistanceGrid(nRows, nColumns)
+        AldousBroder.create(g)
+        start = g[0,0]
+        distances = start.distances()
+        g.distances = distances
     else:
         g = Grid(nRows, nColumns)
-    AldousBroder.create(g)
-    g.draw_ascii()
+        AldousBroder.create(g)
+
+    print g

@@ -24,6 +24,8 @@ furnished to do so, subject to the following conditions:
     SOFTWARE.
 """
 
+from distance import Distances
+
 class Cell:
     """
     Definition of a grid cell
@@ -70,6 +72,23 @@ class Cell:
         if self.cellWest: n.append(self.cellWest)
         if self.cellEast: n.append(self.cellEast)
         return n
+
+    def distances(self):
+        """ This method computes the distance of each cell in the
+        grid from <cell>
+        """
+        distances = Distances(self)
+        frontier = [self]
+        while len(frontier) > 0:
+            new_frontier = []
+            for cell in frontier:
+                for linked_cell in cell.getLinks():
+                    if distances[linked_cell] != None:
+                        continue
+                    distances[linked_cell] = distances[cell] + 1
+                    new_frontier.append(linked_cell)
+            frontier = new_frontier
+        return distances
 
     def __str__(self):
         s = "("+str(self.row)+", "+str(self.column)+")"

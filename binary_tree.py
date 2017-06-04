@@ -57,4 +57,4 @@ if __name__ == "__main__":
     nColumns = input("Enter number of columns: ")
     g = Grid(nRows, nColumns)
     BinaryTreeMaze.create(g)
-    g.draw_ascii();
+    print g

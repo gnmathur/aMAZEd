@@ -27,7 +27,7 @@ furnished to do so, subject to the following conditions:
 from cell import Cell
 import random
 
-class Grid:
+class Grid(object):
     def __init__(self, rows, columns):
         self.rows = rows
         self.columns = columns
@@ -78,7 +78,9 @@ class Grid:
             return self.grid[row][col]
         return None
 
-    def __str__(self):
+    def grid_cells(self):
+        """ Print the grid in a way where each grid cell shows the cell 
+        coordinates """
         s = ""
         for row in range(self.rows):
             L = []
@@ -87,13 +89,18 @@ class Grid:
             s = s + ' '.join(L) + '\n'
         return s
 
-    def draw_ascii(self):
+    def contents_of(self, cell):
+        """ """
+        return " "
+
+
+    def __str__(self):
         output = '+' + "---+" * self.columns + '\n'
         for row in self.each_row():
             top = '|'
             bottom = '+'
             for cell in row:
-                body = "   "
+                body = '{:3s}'.format(self.contents_of(cell))
                 east_boundary = ' ' if cell.isLinked(cell.cellEast) else '|'
                 top = top + body + east_boundary
                 south_boundary = '   ' if cell.isLinked(cell.cellSouth) else '---'
@@ -101,7 +108,7 @@ class Grid:
                 bottom = bottom + south_boundary + corner
             output = output + top + '\n'
             output = output + bottom + '\n'
-        print output
+        return output
                 
 if __name__ == "__main__":
     """
