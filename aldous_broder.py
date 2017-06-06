@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Maze generation using the Sidewinder algorithm
+Maze generation using the Aldous-Broder algorithm
 
 MIT License
 
@@ -30,20 +30,27 @@ from distance_grid import DistanceGrid
 import argparse
 import random
 
-class AldousBroder:
+class AldousBroder: 
+    """ This algorithm picks up a random cell from the grid,
+    makes it the starting point and then randomly starts moving to the next
+    neighbor, and then the next and so on until all the cells are visited 
+    """
+
     def __init__(self):
         pass
 
     @staticmethod
     def create(grid):
+        """ Core logic of this method """
         cells = [cell for cell in grid.each_cell()]
         nCells = len(cells)
         idx = random.randint(0, nCells-1)
         current_cell = cells[idx]
         del cells
-        visited_cells = set()
 
+        visited_cells = set()
         visited_cells.add(current_cell)
+
         while len(visited_cells) != nCells:
             neighbors = [cell for cell in current_cell.neighbors()]
             idx = random.randint(0, len(neighbors)-1)
@@ -67,9 +74,7 @@ if __name__ == "__main__":
     if args.distance_grid:
         g = DistanceGrid(nRows, nColumns)
         AldousBroder.create(g)
-        start = g[0,0]
-        distances = start.distances()
-        g.distances = distances
+        g.compute_distances(g[0,0])
     else:
         g = Grid(nRows, nColumns)
         AldousBroder.create(g)

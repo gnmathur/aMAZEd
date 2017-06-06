@@ -90,9 +90,7 @@ if __name__ == "__main__":
     if args.distance_grid:
         g = DistanceGrid(nRows, nColumns)
         SidewinderMaze.create(g)
-        start = g[0,0]
-        distances = start.distances()
-        g.distances = distances
+        g.compute_distances(g[0,0])
     else:
         g = Grid(nRows, nColumns)
         SidewinderMaze.create(g)

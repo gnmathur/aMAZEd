@@ -1,5 +1,5 @@
 """
-Grid definition
+Distance-Grid definition
 
 MIT License
 
@@ -25,13 +25,39 @@ furnished to do so, subject to the following conditions:
 """
 
 from grid import Grid
+from distance import Distances
 
 class DistanceGrid(Grid):
+    """ A distance grid is a specialized grid that is capable of computing 
+    distances between cells.
+    """
+
     def __init__(self, nRows, nColumns):
         super(DistanceGrid, self).__init__(nRows, nColumns)
         self.distances = None
 
+    def compute_distances(self, start):
+        """ This method computes the distance of each cell in the
+        grid from <start>
+        """
+        self.distances = Distances(start)
+        frontier = [start]
+        while len(frontier) > 0:
+            new_frontier = []
+            for cell in frontier:
+                for linked_cell in cell.getLinks():
+                    if self.distances[linked_cell] != None:
+                        continue
+                    self.distances[linked_cell] = self.distances[cell] + 1
+                    new_frontier.append(linked_cell)
+            frontier = new_frontier
+        return self.distances
+
     def contents_of(self, cell):
+        """ This routine prints the contents of this cell. This overloaded 
+        function defines the contents of this cell as the distance of this cell 
+        from some defined root cell 
+        """
         if self.distances is not None:
             return str(self.distances[cell])
         else:

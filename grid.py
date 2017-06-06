@@ -90,11 +90,12 @@ class Grid(object):
         return s
 
     def contents_of(self, cell):
-        """ """
+        """ This routine returns the 'contents' of a cell object """
         return " "
 
 
     def __str__(self):
+        """ Overloaded function called when the grid is printed """
         output = '+' + "---+" * self.columns + '\n'
         for row in self.each_row():
             top = '|'

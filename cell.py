@@ -59,36 +59,19 @@ class Cell:
         return self.links.keys()
 
     def isLinked(self, cell):
-        """
-        Find out if <cell> is linked to this cell
+        """ Find out if <cell> is linked to this cell
         Returns: True, False
         """
         return cell in self.links
 
     def neighbors(self):
+        """ Return a list of all cells neighboring this cell """
         n = []
         if self.cellNorth: n.append(self.cellNorth) 
         if self.cellSouth: n.append(self.cellSouth)
         if self.cellWest: n.append(self.cellWest)
         if self.cellEast: n.append(self.cellEast)
         return n
-
-    def distances(self):
-        """ This method computes the distance of each cell in the
-        grid from <cell>
-        """
-        distances = Distances(self)
-        frontier = [self]
-        while len(frontier) > 0:
-            new_frontier = []
-            for cell in frontier:
-                for linked_cell in cell.getLinks():
-                    if distances[linked_cell] != None:
-                        continue
-                    distances[linked_cell] = distances[cell] + 1
-                    new_frontier.append(linked_cell)
-            frontier = new_frontier
-        return distances
 
     def __str__(self):
         s = "("+str(self.row)+", "+str(self.column)+")"
