@@ -2,9 +2,10 @@
 
 Implementation of Maze algorithms
 
-Python implementation of the algorithms presented in the book [Mazes for Programmers][REF1] by Jamis Buck
 
 ## Binary Tree Method
+
+> Source: [Mazes for Programmers][REF1] by Jamis Buck
 
 ```sh
 $ python binary_tree.py
@@ -31,6 +32,8 @@ Enter number of columns: 14
 ```
 
 ## Sidewinder Algorithm
+
+> Source: [Mazes for Programmers][REF1] by Jamis Buck
 
 ```sh
 $ python sidewinder.py -h
@@ -79,6 +82,8 @@ $ python sidewinder.py -d 6 12
 
 ## Aldous-broder Method
 
+> Source: [Mazes for Programmers][REF1] by Jamis Buck
+
 ```sh
 $ python aldous_broder.py -g 10 12
 +---+---+---+---+---+---+---+---+---+---+---+---+
@@ -105,6 +110,8 @@ $ python aldous_broder.py -g 10 12
 ```
 
 ## Wilson's Algorithm
+
+> Source: [Mazes for Programmers][REF1] by Jamis Buck
 
 ```sh
 $ python wilson.py -g 8 12
