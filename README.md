@@ -1,6 +1,6 @@
 # aMAZEd
 
-Implementation of Maze algorithms
+Python implementation of various algorithms to generate mazes
 
 
 ## Binary Tree Method
