@@ -27,6 +27,7 @@ furnished to do so, subject to the following conditions:
 from cell import Cell
 from grid import Grid
 from distance_grid import DistanceGrid
+from solution_grid import SolutionGrid
 import random
 import argparse
 
@@ -80,6 +81,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-d", "--distance_grid", action="store_true")
+    group.add_argument("-s", "--solution_grid", action="store_true")
     group.add_argument("-g", "--grid", action="store_true")
     parser.add_argument("r", type=int, help="Number of rows")
     parser.add_argument("c", type=int, help="Number of columns")
@@ -91,6 +93,10 @@ if __name__ == "__main__":
         g = DistanceGrid(nRows, nColumns)
         SidewinderMaze.create(g)
         g.compute_distances(g[0,0])
+    elif args.solution_grid:
+        g = SolutionGrid(nRows, nColumns)
+        SidewinderMaze.create(g)
+        g.solve(g[0,0], g[nRows-1, nColumns-1])
     else:
         g = Grid(nRows, nColumns)
         SidewinderMaze.create(g)

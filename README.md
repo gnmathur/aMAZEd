@@ -1,11 +1,13 @@
 # aMAZEd
 
-Python implementation of various algorithms to generate mazes
+Implementation of various maze generation algorithms in python. 
+
+#### Python package prequisites
+* argparse
+* random
 
 
 ## Binary Tree Method
-
-> Source: [Mazes for Programmers][REF1] by Jamis Buck
 
 ```sh
 $ python binary_tree.py
@@ -31,9 +33,10 @@ Enter number of columns: 14
 
 ```
 
+> Source: [Mazes for Programmers][REF1] by Jamis Buck
+
 ## Sidewinder Algorithm
 
-> Source: [Mazes for Programmers][REF1] by Jamis Buck
 
 ```sh
 $ python sidewinder.py -h
@@ -79,10 +82,9 @@ $ python sidewinder.py -d 6 12
 +---+---+---+---+---+---+---+---+---+---+---+---+
 
 ```
+> Source: [Mazes for Programmers][REF1] by Jamis Buck
 
 ## Aldous-broder Method
-
-> Source: [Mazes for Programmers][REF1] by Jamis Buck
 
 ```sh
 $ python aldous_broder.py -g 10 12
@@ -109,9 +111,9 @@ $ python aldous_broder.py -g 10 12
 +---+---+---+---+---+---+---+---+---+---+---+---+
 ```
 
-## Wilson's Algorithm
-
 > Source: [Mazes for Programmers][REF1] by Jamis Buck
+
+## Wilson's Algorithm
 
 ```sh
 $ python wilson.py -g 8 12
@@ -134,6 +136,72 @@ $ python wilson.py -g 8 12
 +---+---+---+---+---+---+---+---+---+---+---+---+
 
 ```
+> Source: [Mazes for Programmers][REF1] by Jamis Buck
+
+## Backtracking Method
+
+```
+Usage: $ python backtracking.py -h
+usage: backtracking.py [-h] [-g | -d | -s] r c
+
+positional arguments:
+  r                    Number of rows
+  c                    Number of columns
+
+optional arguments:
+  -h, --help           show this help message and exit
+  -g, --grid           Draw a maze only
+  -d, --distance_grid  Draw a maze with distances from (0,0) marked
+  -s, --solution_grid  Draw a maze with solution
+```
+
+```sh
+$ python backtracking.py -g 8 14
++---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+|                       |               |               |
++   +   +---+---+---+   +---+   +   +   +   +   +---+   +
+|   |           |   |       |   |   |   |   |   |       |
++   +---+---+   +   +---+   +---+   +   +---+   +   +---+
+|   |       |   |                   |       |   |   |   |
++   +   +   +   +---+---+---+---+---+---+   +   +   +   +
+|   |   |       |                       |   |   |       |
++---+   +---+---+   +---+---+---+---+   +   +   +---+   +
+|       |           |               |   |       |   |   |
++   +   +---+---+---+   +   +---+---+   +---+---+   +   +
+|   |   |               |   |           |               |
++   +---+   +---+---+---+   +   +---+---+   +---+---+---+
+|       |   |           |       |   |       |           |
++   +   +   +   +---+---+---+---+   +   +---+---+---+   +
+|   |       |                                           |
++---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+```
+
+```sh
+$ python backtracking.py -s 10 12
++---+---+---+---+---+---+---+---+---+---+---+---+
+|0      |4   5      |13  14     |18  19  20  21 |
++   +---+   +   +   +   +   +---+   +---+---+   +
+|1   2   3  |6  |   |12 |15  16  17 |        22 |
++   +---+---+   +---+   +---+---+---+   +---+   +
+|   |       |7  |10  11             |   |   |23 |
++   +   +   +   +   +---+---+---+---+   +   +   +
+|       |   |8   9  |                   |25  24 |
++---+---+---+---+---+   +---+---+---+---+   +---+
+|               |       |       |32  31 |26  27 |
++   +---+---+   +   +---+---+   +   +   +---+   +
+|           |       |           |33 |30  29  28 |
++---+---+   +---+---+   +---+   +   +---+---+---+
+|   |       |           |       |34 |   |       |
++   +   +---+   +---+   +   +---+   +   +   +   +
+|   |       |   |       |       |35 |   |   |   |
++   +---+   +   +   +---+---+---+   +   +   +   +
+|       |   |   |   |           |36 |       |   |
++   +---+---+   +   +   +---+   +   +---+---+   +
+|               |           |    37  38  39  40 |
++---+---+---+---+---+---+---+---+---+---+---+---+
+```
+> Source: [Mazes for Programmers][REF1] by Jamis Buck
+
 License
 ----
 MIT

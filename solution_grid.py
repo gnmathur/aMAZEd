@@ -1,5 +1,5 @@
 """
-Distance-Grid definition
+Solution-Grid definition
 
 MIT License
 
@@ -27,14 +27,15 @@ furnished to do so, subject to the following conditions:
 from grid import Grid
 from distance import Distances
 
-class DistanceGrid(Grid):
+class SolutionGrid(Grid):
     """ A distance grid is a specialized grid that is capable of computing 
     distances between cells.
     """
 
     def __init__(self, nRows, nColumns):
-        super(DistanceGrid, self).__init__(nRows, nColumns)
+        super(SolutionGrid, self).__init__(nRows, nColumns)
         self.distances = None
+        self.crumbs = None
 
     def compute_distances(self, start):
         """ This method computes the distance of each cell in the
@@ -57,26 +58,25 @@ class DistanceGrid(Grid):
         self.compute_distances(start)
 
         current = goal
-        crumbs = Distances(start)
+        self.crumbs = Distances(start)
 
-        crumbs[current] = self.distance[current]
-
-        while current is not goal:
+        self.crumbs[current] = self.distances[current]
+        
+        while current is not start:
             for neighbor in current.getLinks():
-                if self.distance[neighbor] < self.distance[current]:
-                    crumbs[neighbor] = self.distances[neighbor]
+                if self.distances[neighbor] < self.distances[current]:
+                    self.crumbs[neighbor] = self.distances[neighbor]
                     current = neighbor
-        return crumbs
 
     def contents_of(self, cell):
         """ This routine prints the contents of this cell. This overloaded 
         function defines the contents of this cell as the distance of this cell 
         from some defined root cell 
         """
-        if self.distances is not None:
-            return str(self.distances[cell])
+        if self.crumbs[cell] is not None:
+            return str(self.crumbs[cell])
         else:
-            return super(DistanceGrid, self).contents_of()
+            return super(SolutionGrid, self).contents_of(cell)
                 
 if __name__ == "__main__":
     """
