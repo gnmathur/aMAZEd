@@ -5,6 +5,7 @@ Implementation of various maze generation algorithms in python.
 #### Python package prequisites
 * argparse
 * random
+* Pygame
 
 
 ## Binary Tree Method
@@ -115,6 +116,8 @@ $ python aldous_broder.py -g 10 12
 
 ## Wilson's Algorithm
 
+This algorithm takes longer than other methods to converge. The generated maze has no visible bias and a complex texture. 
+
 ```sh
 $ python wilson.py -g 8 12
 +---+---+---+---+---+---+---+---+---+---+---+---+
@@ -139,6 +142,8 @@ $ python wilson.py -g 8 12
 > Source: [Mazes for Programmers][REF1] by Jamis Buck
 
 ## Backtracking Method
+
+Observationally this method generates mazes with the most complex texture. There are no biases the generated mazes.
 
 ```
 Usage: $ python backtracking.py -h

@@ -30,6 +30,7 @@ from distance_grid import DistanceGrid
 from solution_grid import SolutionGrid
 import argparse
 import random
+from draw import MazeDraw
 
 class Backtrack:
     """ Initialize the method
@@ -80,7 +81,8 @@ class Backtrack:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("-g", "--grid", action="store_true", help="Draw a maze only")
+    group.add_argument("-g", "--grid", action="store_true", help="Draw an ascii maze only")
+    group.add_argument("-r", "--draw", action="store_true", help="Draw a maze image only")
     group.add_argument("-d", "--distance_grid", action="store_true", help="Draw a maze with distances from (0,0) marked")
     group.add_argument("-s", "--solution_grid", action="store_true", help="Draw a maze with solution")
     parser.add_argument("r", type=int, help="Number of rows")
@@ -93,12 +95,18 @@ if __name__ == "__main__":
         g = DistanceGrid(nRows, nColumns)
         Backtrack.create(g)
         g.compute_distances(g[0,0])
+        print g
     elif args.solution_grid:
         g = SolutionGrid(nRows, nColumns)
         Backtrack.create(g)
         g.solve(g[0,0], g[nRows-1, nColumns-1])
-    else:
+        print g
+    elif args.grid:
         g = Grid(nRows, nColumns)
         Backtrack.create(g)
+        print g
+    elif args.draw:
+        g = Grid(nRows, nColumns)
+        Backtrack.create(g)
+        MazeDraw(g, "Backtracking Method").draw()
 
-    print g

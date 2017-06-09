@@ -93,6 +93,8 @@ class Grid(object):
         """ This routine returns the 'contents' of a cell object """
         return " "
 
+    def dimensions(self):
+        return self.rows, self.columns
 
     def __str__(self):
         """ Overloaded function called when the grid is printed """

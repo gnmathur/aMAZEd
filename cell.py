@@ -65,7 +65,8 @@ class Cell:
         return cell in self.links
 
     def neighbors(self):
-        """ Return a list of all cells neighboring this cell """
+        """ Return a list of all cells neighboring this cell 
+        """
         n = []
         if self.cellNorth: n.append(self.cellNorth) 
         if self.cellSouth: n.append(self.cellSouth)
