@@ -146,8 +146,8 @@ $ python wilson.py -g 8 12
 Observationally this method generates mazes with the most complex texture. There are no biases the generated mazes.
 
 ```
-Usage: $ python backtracking.py -h
-usage: backtracking.py [-h] [-g | -d | -s] r c
+$ python backtracking.py -h
+usage: backtracking.py [-h] [-g | -r | -d | -s] r c
 
 positional arguments:
   r                    Number of rows
@@ -155,7 +155,8 @@ positional arguments:
 
 optional arguments:
   -h, --help           show this help message and exit
-  -g, --grid           Draw a maze only
+  -g, --grid           Draw an ascii maze only
+  -r, --draw           Draw a maze image only
   -d, --distance_grid  Draw a maze with distances from (0,0) marked
   -s, --solution_grid  Draw a maze with solution
 ```
@@ -205,6 +206,12 @@ $ python backtracking.py -s 10 12
 |               |           |    37  38  39  40 |
 +---+---+---+---+---+---+---+---+---+---+---+---+
 ```
+
+```sh
+$ python backtracking.py -r 20 26
+
+![Backtracking Method](/images/backtracking_example.png)
+
 > Source: [Mazes for Programmers][REF1] by Jamis Buck
 
 License

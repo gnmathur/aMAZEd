@@ -106,7 +106,8 @@ if __name__ == "__main__":
         Backtrack.create(g)
         print g
     elif args.draw:
-        g = Grid(nRows, nColumns)
+        g = SolutionGrid(nRows, nColumns)
         Backtrack.create(g)
+        g.solve(g[0,0], g[nRows-1, nColumns-1])
         MazeDraw(g, "Backtracking Method").draw()
 

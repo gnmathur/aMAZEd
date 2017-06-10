@@ -32,6 +32,11 @@ from grid import Grid
 
 COLOR_RAVEN = (102, 116, 128)
 COLOR_SEPIA = (245, 223, 201)
+COLOR_CORAL = (255, 127, 80)
+COLOR_DARKSLATEGRAY = (47, 79, 79)
+COLOR_DARKSLATEBLUE = (72, 61, 139)
+COLOR_DARKORANGE = (255, 140, 0)
+COLOR_LIGHTSEAGREEN = (32, 178, 170)
 
 class MazeDraw:
     def __init__(self, grid, title):
@@ -39,7 +44,7 @@ class MazeDraw:
         self.CW = 20
         self.CH = 20
         self.XMARGIN = 20
-        self.YMARGIN = 20
+        self.YMARGIN = 120 
         self.WW = self.CW * self.nColumns + self.XMARGIN
         self.WH = self.CH * self.nRows + self.YMARGIN
         self.grid = grid
@@ -53,10 +58,17 @@ class MazeDraw:
         pygame.display.set_caption(self.title)
 
         SURFACE.fill(COLOR_SEPIA)
+
+        save_img = pygame.image.load('images/save.png')
+        save_img = pygame.transform.scale(save_img, (20, 20))
+
+        SURFACE.blit(save_img, (8, 8))
         yoff = self.YMARGIN/2 # x offset
         for row in self.grid.each_row():
             xoff = self.XMARGIN/2 # y offset
             for cell in row:
+                #if self.grid.crumbs[cell] is not None:
+                #    pygame.draw.circle(SURFACE, COLOR_CORAL, (xoff+self.CW/2, yoff+self.CH/2), 2, 0)
                 if not cell.isLinked(cell.cellNorth):
                     pygame.draw.line(SURFACE, COLOR_RAVEN, (xoff, yoff), (xoff+self.CW, yoff), 4)
                 if not cell.isLinked(cell.cellSouth):
@@ -71,6 +83,10 @@ class MazeDraw:
 
         while True:
             for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    x, y = event.pos
+                    if save_img.get_rect().collidepoint(x, y):
+                        pygame.image.save(SURFACE, 'maze.png')
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
