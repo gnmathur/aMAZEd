@@ -209,6 +209,7 @@ $ python backtracking.py -s 10 12
 
 ```sh
 $ python backtracking.py -r 20 26
+```
 
 ![Backtracking Method](/images/backtracking_example.png)
 
