@@ -55,8 +55,8 @@ class AldousBroder:
             # Make a list of all the neighbors, visited or unvisited, and
             # choose a neighbor at random
             neighbors = [cell for cell in current_cell.neighbors()]
-            idx = random.randint(0, len(neighbors)-1)
-            neighbor = neighbors[idx]
+            neighbor = random.choice(neighbors)
+
             # If the chosen neighbor is not visited then link the neighbor with
             # the current cell, mark it visited, and move to neighbor. If the
             # neighbor is already visited then simply move to that neighbor

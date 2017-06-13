@@ -67,8 +67,8 @@ class MazeDraw:
         for row in self.grid.each_row():
             xoff = self.XMARGIN/2 # y offset
             for cell in row:
-                #if self.grid.crumbs[cell] is not None:
-                #    pygame.draw.circle(SURFACE, COLOR_CORAL, (xoff+self.CW/2, yoff+self.CH/2), 2, 0)
+                if self.grid.crumbs[cell] is not None:
+                    pygame.draw.circle(SURFACE, COLOR_CORAL, (xoff+self.CW/2, yoff+self.CH/2), 2, 0)
                 if not cell.isLinked(cell.cellNorth):
                     pygame.draw.line(SURFACE, COLOR_RAVEN, (xoff, yoff), (xoff+self.CW, yoff), 4)
                 if not cell.isLinked(cell.cellSouth):

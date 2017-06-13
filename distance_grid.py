@@ -39,6 +39,8 @@ class DistanceGrid(Grid):
     def compute_distances(self, start):
         """ This method computes the distance of each cell in the
         grid from <start>
+
+        The implementation uses Dijkstra's algorithm to compute the distances.
         """
         self.distances = Distances(start)
         frontier = [start]
@@ -54,6 +56,7 @@ class DistanceGrid(Grid):
         return self.distances
 
     def solve(self, start, goal):
+        """ This method computes the shortest path from <start> to <goal> """
         self.compute_distances(start)
 
         current = goal

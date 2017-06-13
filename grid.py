@@ -54,7 +54,10 @@ class Grid(object):
         """
         for row in self.each_row():
             for cell in row:
-                yield cell
+                # Need the if clause for masked grids where a cell might or not 
+                # be present at a specific (row, column)
+                if cell:
+                    yield cell
 
     def configure_cells(self):
         for cell in self.each_cell():

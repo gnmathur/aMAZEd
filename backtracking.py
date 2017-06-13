@@ -29,7 +29,7 @@ from grid import Grid
 from distance_grid import DistanceGrid
 from solution_grid import SolutionGrid
 import argparse
-import random
+from random import choice
 from draw import MazeDraw
 
 class Backtrack:
@@ -50,8 +50,7 @@ class Backtrack:
             """ Helper routine to choose an element at random from a list """
             if len(lst) == 0:
                 return None
-            idx = random.randint(0, len(lst)-1)
-            return lst[idx]
+            return choice(lst)
         
         # Main algorithm
         stack = []
