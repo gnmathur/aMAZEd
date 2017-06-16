@@ -29,6 +29,7 @@ import pygame
 import sys
 from pygame.locals import *
 from grid import Grid
+from cell import Cell
 
 COLOR_RAVEN = (102, 116, 128)
 COLOR_SEPIA = (245, 223, 201)
@@ -67,16 +68,17 @@ class MazeDraw:
         for row in self.grid.each_row():
             xoff = self.XMARGIN/2 # y offset
             for cell in row:
-                if self.grid.crumbs[cell] is not None:
-                    pygame.draw.circle(SURFACE, COLOR_CORAL, (xoff+self.CW/2, yoff+self.CH/2), 2, 0)
-                if not cell.isLinked(cell.cellNorth):
-                    pygame.draw.line(SURFACE, COLOR_RAVEN, (xoff, yoff), (xoff+self.CW, yoff), 4)
-                if not cell.isLinked(cell.cellSouth):
-                    pygame.draw.line(SURFACE, COLOR_RAVEN, (xoff, yoff+self.CH), (xoff+self.CW, yoff+self.CH), 4)
-                if not cell.isLinked(cell.cellWest):
-                    pygame.draw.line(SURFACE, COLOR_RAVEN, (xoff, yoff), (xoff, yoff+self.CH), 4)
-                if not cell.isLinked(cell.cellEast):
-                    pygame.draw.line(SURFACE, COLOR_RAVEN, (xoff+self.CW, yoff), (xoff+self.CW, yoff+self.CH), 4)
+                if cell is not None: 
+                    #if self.grid.crumbs[cell] is not None:
+                    #    pygame.draw.circle(SURFACE, COLOR_CORAL, (xoff+self.CW/2, yoff+self.CH/2), 2, 0)
+                    if not cell.isLinked(cell.cellNorth):
+                        pygame.draw.line(SURFACE, COLOR_RAVEN, (xoff, yoff), (xoff+self.CW, yoff), 4)
+                    if not cell.isLinked(cell.cellSouth):
+                        pygame.draw.line(SURFACE, COLOR_RAVEN, (xoff, yoff+self.CH), (xoff+self.CW, yoff+self.CH), 4)
+                    if not cell.isLinked(cell.cellWest):
+                        pygame.draw.line(SURFACE, COLOR_RAVEN, (xoff, yoff), (xoff, yoff+self.CH), 4)
+                    if not cell.isLinked(cell.cellEast):
+                        pygame.draw.line(SURFACE, COLOR_RAVEN, (xoff+self.CW, yoff), (xoff+self.CW, yoff+self.CH), 4)
                 xoff = xoff + self.CW
             yoff = yoff + self.CH
 

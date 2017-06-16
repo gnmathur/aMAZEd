@@ -53,13 +53,26 @@ class Mask:
         return sum([self.bits[x][y] for x in range(self.n_rows)
                                     for y in range(self.n_columns)])
 
+    @staticmethod
+    def from_image(img_file):
+        import pygame
+        surface = pygame.image.load(img_file)
+        mask = Mask(surface.get_height(), surface.get_width())
+        for row in range(0, mask.n_rows):
+            for col in range(0, mask.n_columns):
+                color = surface.get_at((col, row))
+                if color.r == 0 and color.g == 0 and color.b == 0:
+                    mask[row, col] = False
+                else:
+                    mask[row, col] = True
+        return mask
+        
     def random_location(self):
         while True:
             row = randint(0, self.n_rows-1)
             col = randint(0, self.n_columns-1)
             if self.bits[row][col]:
-                return self.bits[row][col]
-    
+                return row, col
 
 if __name__ == "__main__":
     m = Mask(3, 4)

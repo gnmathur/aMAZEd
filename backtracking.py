@@ -28,6 +28,8 @@ furnished to do so, subject to the following conditions:
 from grid import Grid
 from distance_grid import DistanceGrid
 from solution_grid import SolutionGrid
+from masked_grid import MaskedGrid
+from mask import Mask
 import argparse
 from random import choice
 from draw import MazeDraw
@@ -84,6 +86,7 @@ if __name__ == "__main__":
     group.add_argument("-r", "--draw", action="store_true", help="Draw a maze image only")
     group.add_argument("-d", "--distance_grid", action="store_true", help="Draw a maze with distances from (0,0) marked")
     group.add_argument("-s", "--solution_grid", action="store_true", help="Draw a maze with solution")
+    group.add_argument("-m", "--masked_grid", action="store_true", help="Draw a maze with solution")
     parser.add_argument("r", type=int, help="Number of rows")
     parser.add_argument("c", type=int, help="Number of columns")
     args = parser.parse_args()
@@ -104,6 +107,17 @@ if __name__ == "__main__":
         g = Grid(nRows, nColumns)
         Backtrack.create(g)
         print g
+    elif args.masked_grid:
+        # m = Mask(nRows, nColumns)
+        # m[0, 0] = False
+        # m[1, 1] = False
+        # m[2, 2] = False
+        # m[3, 3] = False
+        # m = Mask.from_image('maze_text.png')
+        m = Mask.from_image('circle.png')
+        g = MaskedGrid(m)
+        Backtrack.create(g)
+        MazeDraw(g, "BT").draw()
     elif args.draw:
         g = SolutionGrid(nRows, nColumns)
         Backtrack.create(g)

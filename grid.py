@@ -106,6 +106,10 @@ class Grid(object):
             top = '|'
             bottom = '+'
             for cell in row:
+                if cell is None:
+                    # This clause handles the case where there is no cell object 
+                    # at the specified location because it has been masked 
+                    cell = Cell(-1, -1)
                 body = '{:3s}'.format(self.contents_of(cell))
                 east_boundary = ' ' if cell.isLinked(cell.cellEast) else '|'
                 top = top + body + east_boundary
