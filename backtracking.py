@@ -25,14 +25,14 @@ furnished to do so, subject to the following conditions:
     SOFTWARE.
 """
 
-from grid import Grid
-from distance_grid import DistanceGrid
-from solution_grid import SolutionGrid
-from masked_grid import MaskedGrid
-from mask import Mask
+from grid            import Grid
+from distance_grid   import DistanceGrid
+from solution_grid   import SolutionGrid
+from masked_grid     import MaskedGrid
+from mask            import Mask
+from random          import choice
+from draw            import MazeDraw
 import argparse
-from random import choice
-from draw import MazeDraw
 
 class Backtrack:
     """ Initialize the method
@@ -114,7 +114,7 @@ if __name__ == "__main__":
         # m[2, 2] = False
         # m[3, 3] = False
         # m = Mask.from_image('maze_text.png')
-        m = Mask.from_image('circle.png')
+        m = Mask.from_image('images/templates/circle.png')
         g = MaskedGrid(m)
         Backtrack.create(g)
         MazeDraw(g, "BT").draw()

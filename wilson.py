@@ -25,11 +25,11 @@ furnished to do so, subject to the following conditions:
     SOFTWARE.
 """
 
-from grid import Grid
-from distance_grid import DistanceGrid
-from solution_grid import SolutionGrid
+from grid            import Grid
+from distance_grid   import DistanceGrid
+from solution_grid   import SolutionGrid
+from random          import choice
 import argparse
-from random import choice
 
 class Wilson:
     """ Wilson's algorithm for generating mazes

@@ -25,28 +25,43 @@ furnished to do so, subject to the following conditions:
     SOFTWARE.
 """
 import argparse
-from grid import Grid
-from distance_grid import DistanceGrid
-from solution_grid import SolutionGrid
+import time
+import datetime
 
-from binary_tree import BinaryTreeMaze
-from sidewinder import SidewinderMaze
-from backtracking import Backtrack
+from grid            import Grid
+from distance_grid   import DistanceGrid
+from solution_grid   import SolutionGrid
+from draw            import MazeDraw
+from mask            import Mask
+from masked_grid     import MaskedGrid
 
-ALGO_BINARY = "binary"
-ALGO_SIDEWINDER = "sidewinder"
-ALGO_BACKTRACKING = "backtracking"
+from binary_tree     import BinaryTreeMaze
+from sidewinder      import SidewinderMaze
+from backtracking    import Backtrack
+from aldous_broder   import AldousBroder
+from wilson          import Wilson
+
+ALGO_BINARY          = "binary"
+ALGO_SIDEWINDER      = "sidewinder"
+ALGO_BACKTRACKING    = "backtracking"
+ALGO_ALDOUS_BRODER   = "aldous-broder"
+ALGO_WILSON          = "wilson"
+
+def timestamp():
+    return str(datetime.datetime.now())
 
 if __name__ == "__main__":
 
     algo_cb = {
-        ALGO_BINARY: BinaryTreeMaze.create,
-        ALGO_SIDEWINDER: SidewinderMaze.create,
-        ALGO_BACKTRACKING: Backtrack.create
+        ALGO_BINARY:          BinaryTreeMaze.create,
+        ALGO_SIDEWINDER:      SidewinderMaze.create,
+        ALGO_BACKTRACKING:    Backtrack.create,
+        ALGO_ALDOUS_BRODER:   AldousBroder.create,
+        ALGO_WILSON:          Wilson.create
     }
 
-    parser = argparse.ArgumentParser()
-    subparser = parser.add_subparsers(title='Rendering method', dest='subparser_name')
+    parser     = argparse.ArgumentParser()
+    subparser  = parser.add_subparsers(title='Rendering method', dest='subparser_name')
     parser.add_argument("--algo", default='binary', choices = [
         'binary', 'sidewinder', 'wilson', 'aldous-broder', 'backtracking'])
 
@@ -69,16 +84,16 @@ if __name__ == "__main__":
     sol_parser.add_argument('er', type=int, help="Row number of cell to end solution path at")
     sol_parser.add_argument('ec', type=int, help="Column number of cell to end solution path at")
 
-    img_parser = subparser.add_parser('image', help="Create an image of the maze")
-    img_rc_group = img_parser.add_argument_group()
+    img_parser       = subparser.add_parser('image', help="Draw an image of the maze")
+    img_rc_group     = img_parser.add_argument_group()
     img_rc_group.add_argument('r', type=int, help="Number of rows")
     img_rc_group.add_argument('c', type=int, help="Number of columns")
-    img_solu_group = img_parser.add_argument_group()
-    img_solu_group.add_argument('-sR', type=int, help="Row number of cell to start computing distances from")
-    img_solu_group.add_argument('-sC', type=int, help="Column number of cell to start computing distances from")
+
+    mimg_parser       = subparser.add_parser('masked-image', help="Draw an image of a maze where the maze is created from a mask specified in a B&W image file")
+    mimg_rc_group     = mimg_parser.add_argument_group()
+    mimg_rc_group.add_argument('mask_img', type=file, help="Masked image")
 
     args = parser.parse_args()
-    print args
 
     if args.subparser_name == "grid":
         g = Grid(args.r, args.c)
@@ -94,6 +109,12 @@ if __name__ == "__main__":
         algo_cb[args.algo](g)
         g.solve(g[args.sr, args.sc], g[args.er, args.ec])
         print g
-
-
-
+    elif args.subparser_name == "masked-image":
+        m = Mask.from_image(args.mask_img)
+        g = MaskedGrid(m)
+        Backtrack.create(g)
+        MazeDraw(g, 'Maze '+timestamp()).draw()
+    elif args.subparser_name == "image":
+        g = Grid(args.r, args.c)
+        Backtrack.create(g)
+        MazeDraw(g, 'Maze '+timestamp()).draw()

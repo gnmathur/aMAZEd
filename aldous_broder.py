@@ -25,8 +25,8 @@ furnished to do so, subject to the following conditions:
     SOFTWARE.
 """
 
-from grid import Grid
-from distance_grid import DistanceGrid
+from grid            import Grid
+from distance_grid   import DistanceGrid
 import argparse
 import random
 
@@ -42,9 +42,9 @@ class AldousBroder:
     @staticmethod
     def create(grid):
         """ Core logic of this method """
-        cells = [cell for cell in grid.each_cell()]
-        nCells = len(cells)
-        idx = random.randint(0, nCells-1)
+        cells        = [cell for cell in grid.each_cell()]
+        nCells       = len(cells)
+        idx          = random.randint(0, nCells-1)
         current_cell = cells[idx]
         del cells
 
@@ -54,8 +54,8 @@ class AldousBroder:
         while len(visited_cells) != nCells:
             # Make a list of all the neighbors, visited or unvisited, and
             # choose a neighbor at random
-            neighbors = [cell for cell in current_cell.neighbors()]
-            neighbor = random.choice(neighbors)
+            neighbors   = [cell for cell in current_cell.neighbors()]
+            neighbor    = random.choice(neighbors)
 
             # If the chosen neighbor is not visited then link the neighbor with
             # the current cell, mark it visited, and move to neighbor. If the
@@ -66,6 +66,7 @@ class AldousBroder:
                 visited_cells.add(neighbor)
             current_cell = neighbor
 
+# Unit tests for Aldous-Broder
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group()
