@@ -72,7 +72,7 @@ $ python amazed.py --algo wilson image 15 15
 $ python amazed.py --algo backtracking masked-image images/templates/circle.png
 ```
 
-![Backtacking Method using a mask] (/images/ex_backtracking_masked.png)
+![Backtracking Method using a mask](/images/ex_backtracking_masked.png)
 
 
 License
